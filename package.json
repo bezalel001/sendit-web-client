@@ -1,0 +1,33 @@
+{
+  "name": "sendit-web-client",
+  "version": "1.0.0",
+  "description": "SendIT is a courier service that helps users deliver parcels to different destinations.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bezalel001/sendit-web-client.git"
+  },
+  "author": "Michael Ogu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bezalel001/sendit-web-client/issues"
+  },
+  "homepage": "https://github.com/bezalel001/sendit-web-client#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
+}
