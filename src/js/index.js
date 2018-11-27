@@ -1,4 +1,5 @@
 import AuthController from './controllers/auth';
+import * as baseViews from './views/base';
 
 export default class App {
   constructor(element){
@@ -7,8 +8,27 @@ export default class App {
   }
 
   initPage() {
-    this.signIn.renderLoginComponent();
-    //this.signUp.renderSignUpComponent();
+    baseViews.homePage();
+    this.addEventListener();
+  }
+
+  addEventListener() {
+    this.addLoginNavEventListener();
+    this.addSignUpNavEventListener();
+  }
+
+  addLoginNavEventListener() {
+    document.getElementById('login-btn').addEventListener('click', e => {
+      e.preventDefault();
+      this.signIn.renderLoginComponent();
+    });
+  }
+
+  addSignUpNavEventListener() {
+    document.getElementById('signup-btn').addEventListener('click', e => {
+      e.preventDefault();
+      this.signUp.renderSignUpComponent();
+    });
   }
 }
 

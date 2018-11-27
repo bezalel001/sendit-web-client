@@ -3,6 +3,8 @@ import * as authView from '../views/authView';
 import { elements, clearResults } from '../views/base';
 import  Auth from '../models/Auth';
 import *  as userView from '../views/userView';
+import *  as parcelView from '../views/parcelView';
+import ParcelController from '../controllers/parcel'
 
 import User from '../models/User';
 
@@ -12,6 +14,7 @@ export default class AuthController extends EventEmitter {
     this.element = element;
     this.state = {};
     this.user = new User();
+    this.parcel = new ParcelController();
   }
 
   renderLoginComponent() {
@@ -96,6 +99,7 @@ export default class AuthController extends EventEmitter {
       // redirect user to profile
       clearResults();
       userView.renderUser(user);
+      
     } catch (error) {
       alert('Some login Error');
     }
