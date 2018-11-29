@@ -12,9 +12,10 @@ export default class User {
         }
       });
       const user = await result.json();
+      console.log('getuuserwithid: ', user)
       return user.data;
     } catch (error) {
-      alert('Could not get user', error);
+      alert(`Could not get user::::${error}`);
     }
 
 

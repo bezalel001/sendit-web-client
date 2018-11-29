@@ -1,14 +1,14 @@
 export default class Parcel {
-  constructor(parcel) {
-    this.parcel = parcel;
+  constructor() {
+  
     this.URL = 'http://localhost:3000';
   }
 
 
 
   // Create parcel delivery order
-  async createParcel() {
-    const { sender, receiver } = this.parcel;
+  async createParcel(parcel) {
+    const { sender, receiver } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels`, {
         method: 'post',
@@ -33,8 +33,8 @@ export default class Parcel {
   }
 
   // Activate parcel
-  async activateParcel() {
-    const {parcelId, placed_by, weight, weightMetric, currentLocation, status } = this.parcel;
+  async activateParcel(parcel) {
+    const {parcelId, placed_by, weight, weightMetric, currentLocation, status } = parcel;
     const userId = placed_by;
     try {
      const result = await fetch(`${this.URL}/api/v1/users/${userId}/parcels/${placed_by}`, {
@@ -80,8 +80,8 @@ export default class Parcel {
   }
 
   // Get a specific parcel delivery order
-  async getParcel() {
-    const { parcelId } = this.parcel;
+  async getParcel(parcel) {
+    const { parcelId } = parcel;
     try {
       const result = fetch(`${this.URL}/parcels/${parcelId}`, {
         headers: {
@@ -98,8 +98,8 @@ export default class Parcel {
   }
 
   // Get a specific parcel delivery order
-  async getParcelBySpecificUser() {
-    const {parcelId, placed_by } = this.parcel;
+  async getParcelBySpecificUser(parcel) {
+    const {parcelId, placed_by } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/users/${placed_by}/parcels/${parcelId}`, {
         headers: {
@@ -116,8 +116,8 @@ export default class Parcel {
   }
 
   // Cancel a specific parcel delivery order
-  async cancelParcel() {
-    const {active} = this.parcel;
+  async cancelParcel(parcel) {
+    const {active} = parcel;
     
     try {
       const { parcelId } = await fetch(`${this.URL}/api/v1/parcels/:parcelId/cancel`, {
@@ -140,8 +140,8 @@ export default class Parcel {
   }
 
   // Change the destination of a specific parcel delivery order.
-  async changeParcelDestination() {
-    const {parcelId, receiver} = this.parcel;
+  async changeParcelDestination(parcel) {
+    const {parcelId, receiver} = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/destination`, {
         method: 'patch',
@@ -162,8 +162,8 @@ export default class Parcel {
   }
 
   // Fetch all parcel delivery order by a specific user.
-  async getParcelsBySpecificUser() {
-    const {placed_by} = this.parcel;
+  async getParcelsBySpecificUser(userId) {
+    const placed_by = userId;
     try {
       const results = await fetch(`${this.URL}/api/v1/users/${placed_by}/parcels`, {
         headers: {
@@ -171,20 +171,21 @@ export default class Parcel {
           Authorization: localStorage.getItem('token')
         }
       });
-      const parcels = result.json();
+      const parcels = await results.json();
+      console.log('Parcels message: ', parcels);
       return parcels.data;
     } catch (error) {
-      alert(`Could not retrieve parcels for this user == ${error}`)
+      alert(`Could not retrieve parcels for this user == ${error.message}`)
     }
   }
 
   // Change the status of a specific parcel delivery order.
   // Only the Admin is allowed to access this endpoint.
-  async changeParcelStatus() {
-    const { placed_by, status } = this.parcel;
+  async changeParcelStatus(parcel) {
+    const { parcelId, status } = parcel;
 
     try {
-      const result = await fetch(`${this.URL}/api/v1/parcels/:parcelId/status`, {
+      const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/status`, {
         method: 'patch',
         body: JSON.stringify({status}),
         headers: {
@@ -202,10 +203,10 @@ export default class Parcel {
 
   // Change the present location of a specific parcel delivery order.
   // Only the Admin is allowed to access this endpoint.
-  async changeParcelCurrentLocation() {
-    const {placed_by, currentLocation } = this.parcel;
+  async changeParcelCurrentLocation(parcel) {
+    const {currentLocation, parcelId } = parcel;
     try {
-      const result = await fetch(`${this.URL}/api/v1/parcels/${placed_by}/currentLocation`, {
+      const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/currentLocation`, {
         method: 'patch',
         body: JSON.stringify({currentLocation}),
         headers: {
@@ -222,10 +223,10 @@ export default class Parcel {
   }
 
   // delete a parcel delivery order
-  async deleteParcel() {
-    const parcel = this.parcel;
+  async deleteParcel(parcel) {
+    const {parcelId} = parcel;
     try {
-      const result = await fetch(`${this.URL}/api/v1/parcels/:parcelId`, {
+      const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}`, {
         method: 'delete',
         body: JSON.stringify(parcel),
         headers: {

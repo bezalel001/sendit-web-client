@@ -16,8 +16,9 @@ export const elements = {
   signupBtn: document.getElementById('login__signup-btn'),
 
   loginNavBtn: document.getElementById('login-btn'),
-  signuvNabBtn: document.getElementById('signup-btn')
+  signuvNabBtn: document.getElementById('signup-btn'),
 
+  userParcels: document.getElementById('user__all-parcels')
 };
 
 export const clearResults = () => {

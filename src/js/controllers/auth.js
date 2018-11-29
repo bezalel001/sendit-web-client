@@ -5,6 +5,7 @@ import  Auth from '../models/Auth';
 import *  as userView from '../views/userView';
 import *  as parcelView from '../views/parcelView';
 import ParcelController from '../controllers/parcel'
+import UserController from '../controllers/user';
 
 import User from '../models/User';
 
@@ -14,7 +15,8 @@ export default class AuthController extends EventEmitter {
     this.element = element;
     this.state = {};
     this.user = new User();
-    this.parcel = new ParcelController();
+    this.parcelController = new ParcelController();
+    this.userController = new UserController();
   }
 
   renderLoginComponent() {
@@ -96,12 +98,13 @@ export default class AuthController extends EventEmitter {
     // login user
     try {
       const user =  await this.state.authUser.loginUser();
+      console.log('handlelogin userId: ', user.user_id);
       // redirect user to profile
-      clearResults();
-      userView.renderUser(user);
+      
+      this.userController.getUserData(user.user_id);
       
     } catch (error) {
-      alert('Some login Error');
+      alert(`Some login Error: ${error}`);
     }
   }
 }

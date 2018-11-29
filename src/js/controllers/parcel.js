@@ -1,6 +1,7 @@
 import Parcel from '../models/Parcel';
 import * as parcelView from '../views/parcelView';
 import {elements, clearResults } from '../views/base';
+import * as userView from '../views/userView';
 
 export default class ParcelController {
   constructor(){
@@ -9,11 +10,16 @@ export default class ParcelController {
 
   // Create parcel delivery order
   async createParcel() {
-
+    console.log('Create parcelcontroller called')
+    const parcel = parcelView.getParcelCreateValues();
+    console.log('Parcel: ', parcel)
     try {
-      
+      const newParcel = await this.parcel.createParcel(parcel);
+      console.log('New parcel: ', newParcel);
+      userView.clearParcelForm();
+      parcelView.renderParcelOrderByASpecificUser(newParcel);
     } catch (error) {
-      
+      alert(`Parcel create error === ${error}`);
     }
   }
 
@@ -33,7 +39,7 @@ export default class ParcelController {
     try {
       const parcels = await this.parcel.getParcels();
       clearResults();
-      parcelView.renderPacelOrders(parcels);
+      parcelView.renderParcelOrders(parcels);
       
     } catch (error) {
       alert(`Could not get parcels====${error}`)
@@ -79,12 +85,14 @@ export default class ParcelController {
   }
 
   // Fetch all parcel delivery order by a specific user.
-  async getParcelsBySpecificUser(req, res) {
+  async getParcelsBySpecificUser(userId) {
 
     try {
-      
+      const parcels = await this.parcel.getParcelsBySpecificUser(userId);
+      console.log('User parcels: ', parcels)
+      parcelView.renderParcelsOrderByASpecificUser(parcels, document.getElementById('user__all-parcels'));
     } catch (error) {
-      
+      alert(`Could not get parcels for user -- ${error}`)
     }
   }
 

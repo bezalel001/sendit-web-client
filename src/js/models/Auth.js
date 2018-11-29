@@ -61,6 +61,7 @@ export default class Auth extends EventEmitter {
       }
       console.log('user.data: ', user.data);
       console.log('user token: ', token);
+      localStorage.setItem('userId', user.data.user_id);
       return user.data;
 
     } catch (error) {
