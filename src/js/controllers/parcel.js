@@ -24,12 +24,13 @@ export default class ParcelController {
   }
 
   // Activate parcel
-  async activateParcel(req, res) {
+  async activateParcel(parcel) {
 
     try {
-     
+    //  const  parcel = await this.parcel.activateParcel(parcel);
+    //  parcelView.renderParcelOrderByASpecificUser(parcel);
     } catch (error) {
-      
+      alert(`Could not activate parcel: ${error.message}`);
     }
   }
 
@@ -47,10 +48,12 @@ export default class ParcelController {
   }
 
   // Get a specific parcel delivery order
-  async getParcel(req, res) {
+  async getParcel(parcelId) {
     try {
+      const parcelDetail = await this.parcel.getParcel(parcelId)
+      parcelView.renderParcelOrder(parcelDetail, document.getElementById('user__all-parcels'));
     } catch (error) {
-      
+      alert(`Error: ${error.message}`)
     }
   }
 

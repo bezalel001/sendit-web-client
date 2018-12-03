@@ -4,14 +4,16 @@ export default class Auth extends EventEmitter {
   constructor(userInfo) {
     super();
     this.userInfo = userInfo;
-    this.URL = 'http://localhost:3000';
+    this.URL = 'https://boiling-earth-75235.herokuapp.com';
   }
 
   async createUser() {
-    const { firstName, lastName, otherNames, email, password1, username, isAdmin } = this.userInfo;
+    const {
+ firstName, lastName, otherNames, email, password1, username, isAdmin 
+} = this.userInfo;
 
     const password = password1;
-    
+
     try {
       const result = await fetch(`${this.URL}/auth/signup`, {
         method: 'post',
@@ -22,27 +24,27 @@ export default class Auth extends EventEmitter {
           email,
           password,
           username,
-          isAdmin
+          isAdmin,
         }),
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
 
       const data = await result.json();
 
       console.log('Data: ', data.data);
       console.log('Status: ', data.status);
-      console.log('Message: ', data.message)
+      console.log('Message: ', data.message);
 
     } catch (error) {
-      alert(`Registration error ${error}`)
-    }   
+      alert(`Registration error ${error}`);
+    }
   }
 
   async loginUser() {
-    const {email, password} = this.userInfo;
+    const { email, password } = this.userInfo;
     console.log('Email: ', email);
     console.log('Password', password);
     try {
@@ -50,13 +52,13 @@ export default class Auth extends EventEmitter {
         method: 'post',
         body: JSON.stringify({ email, password }),
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
       const user = await result.json();
       const token = user.token;
-      if (token){
+      if (token) {
         localStorage.setItem('token', token);
       }
       console.log('user.data: ', user.data);
@@ -65,7 +67,7 @@ export default class Auth extends EventEmitter {
       return user.data;
 
     } catch (error) {
-      alert('Could not login')
-    }    
+      alert('Could not login');
+    }
   }
 }

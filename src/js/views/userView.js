@@ -1,9 +1,5 @@
 import { elements } from './base';
 
-
-
-
-
 export const renderUser = (user) => {
   if (user.other_names === null){
     user.other_names = '';
