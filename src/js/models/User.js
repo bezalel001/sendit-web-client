@@ -1,6 +1,6 @@
 export default class User {
-  constructor(){
-    this.URL = 'http://localhost:3000';
+  constructor() {
+    this.URL = 'https://boiling-earth-75235.herokuapp.com';
   }
 
   async getUserWithId(id) {
@@ -8,11 +8,11 @@ export default class User {
       const result = await fetch(`${this.URL}/api/v1/users/${id}`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const user = await result.json();
-      console.log('getuuserwithid: ', user)
+      console.log('getuuserwithid: ', user);
       return user.data;
     } catch (error) {
       alert(`Could not get user::::${error}`);
@@ -26,11 +26,11 @@ export default class User {
       const results = await fetch(`${this.URL}/api/v1/users`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const users = await results.json();
-    
+
       return users.data;
     } catch (error) {
       alert('Could not retrieve users');

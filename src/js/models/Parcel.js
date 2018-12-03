@@ -1,7 +1,7 @@
 export default class Parcel {
   constructor() {
-  
-    this.URL = 'http://localhost:3000';
+
+    this.URL = 'https://boiling-earth-75235.herokuapp.com';
   }
 
 
@@ -14,13 +14,13 @@ export default class Parcel {
         method: 'post',
         body: JSON.stringify({
           sender,
-          receiver
+          receiver,
         }),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = await result.json();
       console.log('Parcel status: ', parcel.status);
@@ -28,36 +28,38 @@ export default class Parcel {
       console.log('Parcel message: ', parcel.parcel);
       return parcel.data;
     } catch (error) {
-      alert(`Could not create parcel -- ${error}`)
+      alert(`Could not create parcel -- ${error}`);
     }
   }
 
   // Activate parcel
   async activateParcel(parcel) {
-    const {parcelId, placed_by, weight, weightMetric, currentLocation, status } = parcel;
+    const {
+ parcelId, placed_by, weight, weightMetric, currentLocation, status 
+} = parcel;
     const userId = placed_by;
     try {
-     const result = await fetch(`${this.URL}/api/v1/users/${userId}/parcels/${placed_by}`, {
-       method: 'patch',
-       body: JSON.stringify({
-         weight,
-         weightMetric,
-         currentLocation,
-         status
-       }),
-       headers: {
-         Accept: 'application/json',
-         Authorization: localStorage.getItem('token')
-       }
-     });
-     const parcel = await result.json();
-     console.log('Activate parcel status: ', parcel.status);
-     console.log('Activate parcel data: ', parcel.data);
-     console.log('Activate parcel message: ', parcel.message);
-    
-     return parcel.data;
+      const result = await fetch(`${this.URL}/api/v1/users/${userId}/parcels/${parcelId}`, {
+        method: 'patch',
+        body: JSON.stringify({
+          weight,
+          weightMetric,
+          currentLocation,
+          status,
+        }),
+        headers: {
+          Accept: 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      const parcel = await result.json();
+      console.log('Activate parcel status: ', parcel.status);
+      console.log('Activate parcel data: ', parcel.data);
+      console.log('Activate parcel message: ', parcel.message);
+
+      return parcel.data;
     } catch (error) {
-      alert(`Could not active this parcel ${error}`)
+      alert(`Could not active this parcel ${error}`);
     }
   }
 
@@ -68,29 +70,29 @@ export default class Parcel {
       const results = await fetch(`${this.URL}/parcels`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
-      });      
-      const parcel = await results.json()
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      const parcel = await results.json();
 
       return parcel.data;
     } catch (error) {
-      alert(`Could not get Parcels--- ${error}`)
+      alert(`Could not get Parcels--- ${error}`);
     }
   }
 
   // Get a specific parcel delivery order
-  async getParcel(parcel) {
-    const { parcelId } = parcel;
+  async getParcel(parcelId) {
+    // const { parcelId } = parcel;
     try {
-      const result = fetch(`${this.URL}/parcels/${parcelId}`, {
+      const result = await fetch(`${this.URL}/parcels/${parcelId}`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = await result.json();
-
+      console.log('Parcel: ', parcel);
       return parcel.data;
     } catch (error) {
       alert(`Could not get parcel--- ${error}`);
@@ -99,13 +101,13 @@ export default class Parcel {
 
   // Get a specific parcel delivery order
   async getParcelBySpecificUser(parcel) {
-    const {parcelId, placed_by } = parcel;
+    const { parcelId, placed_by } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/users/${placed_by}/parcels/${parcelId}`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = await result.json();
 
@@ -117,42 +119,42 @@ export default class Parcel {
 
   // Cancel a specific parcel delivery order
   async cancelParcel(parcel) {
-    const {active} = parcel;
-    
+    const { active } = parcel;
+
     try {
       const { parcelId } = await fetch(`${this.URL}/api/v1/parcels/:parcelId/cancel`, {
         method: 'patch',
         body: JSON.stringify({
-          active
+          active,
         }),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
 
       const parcel = result.json();
       return parcel.data;
     } catch (error) {
-      
+
     }
   }
 
   // Change the destination of a specific parcel delivery order.
   async changeParcelDestination(parcel) {
-    const {parcelId, receiver} = parcel;
+    const { parcelId, receiver } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/destination`, {
         method: 'patch',
         body: JSON.stringify({
-          receiver
+          receiver,
         }),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = await result.json();
       return parcel.data;
@@ -168,14 +170,14 @@ export default class Parcel {
       const results = await fetch(`${this.URL}/api/v1/users/${placed_by}/parcels`, {
         headers: {
           Accept: 'application/json',
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcels = await results.json();
       console.log('Parcels message: ', parcels);
       return parcels.data;
     } catch (error) {
-      alert(`Could not retrieve parcels for this user == ${error.message}`)
+      alert(`Could not retrieve parcels for this user == ${error.message}`);
     }
   }
 
@@ -187,15 +189,15 @@ export default class Parcel {
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/status`, {
         method: 'patch',
-        body: JSON.stringify({status}),
+        body: JSON.stringify({ status }),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = result.json();
-      return parcel.data;      
+      return parcel.data;
     } catch (error) {
       alert(`Could not change parcel status ---${error}`);
     }
@@ -204,39 +206,39 @@ export default class Parcel {
   // Change the present location of a specific parcel delivery order.
   // Only the Admin is allowed to access this endpoint.
   async changeParcelCurrentLocation(parcel) {
-    const {currentLocation, parcelId } = parcel;
+    const { currentLocation, parcelId } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}/currentLocation`, {
         method: 'patch',
-        body: JSON.stringify({currentLocation}),
+        body: JSON.stringify({ currentLocation }),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
       const parcel = await result.json();
       return parcel.data;
     } catch (error) {
-      
+
     }
   }
 
   // delete a parcel delivery order
   async deleteParcel(parcel) {
-    const {parcelId} = parcel;
+    const { parcelId } = parcel;
     try {
       const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}`, {
         method: 'delete',
         body: JSON.stringify(parcel),
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem('token'),
+        },
       });
     } catch (error) {
-      alert(`Could not delete this parcel ---- ${error}`)
+      alert(`Could not delete this parcel ---- ${error}`);
     }
   }
 

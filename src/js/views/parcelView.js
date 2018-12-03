@@ -25,7 +25,7 @@ export const parcelActivateValues = () => {
   return parcel;
 }
 
-export const renderParcelOrder = (parcel) => {
+export const renderParcelOrder = (parcel, position) => {
   const markup = `
   <div class="parcel__order-detail">
     <h2>Parcel</h2>
@@ -38,7 +38,7 @@ export const renderParcelOrder = (parcel) => {
     <p>Sent on: <strong>${parcel.sent_on}</strong></p>
     <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
   </div> `;
-  elements.mainContent.insertAdjacentHTML('afterbegin', markup);
+  position.insertAdjacentHTML('afterbegin', markup);
 }
 
 export const renderParcelOrders = (parcels) => {
@@ -46,19 +46,22 @@ export const renderParcelOrders = (parcels) => {
 }
 
 export const renderParcelOrderByASpecificUser = (parcel, position) => {
-  const markup = `
-  <div class="parcel__order-detail">
-    <h2>Parcel</h2>
-    <p>Weight: <strong>${parcel.weight}</strong></p>
-    <p>Weight metric: <strong>${parcel.weight_metric}</strong></p>
-    <p>sender:<strong>${parcel.sender}</strong></p>
-    <p>receiver: <strong>${parcel.receiver}</strong></p>
-    <p>Current Location: <strong>${parcel.current_location}</strong></p>
-    <p>status: <strong>${parcel.status}</strong></p>
-    <p>Sent on: <strong>${parcel.sent_on}</strong></p>
-    <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
-    <a class="btn" type="button" id="parcel__activate-btn" href="#">Activate Parcel</a>
-  </div> `;
+  const  markup = `<p><a href="#" class="parcel__title" id="${parcel.parcelId}">sender:<strong>${parcel.sender}</strong></a></p>`;
+  // const markup = `
+  // <div class="parcel__order-detail">
+  //   <h2>Parcel</h2>
+  //   <div style="visibilty:hidden">
+  //   <p>Weight: <strong>${parcel.weight}</strong></p>
+  //   <p>Weight metric: <strong>${parcel.weight_metric}</strong></p>
+  //   <p>sender:<strong>${parcel.sender}</strong></p>
+  //   <p>receiver: <strong>${parcel.receiver}</strong></p>
+  //   <p>Current Location: <strong>${parcel.current_location}</strong></p>
+  //   <p>status: <strong>${parcel.status}</strong></p>
+  //   <p>Sent on: <strong>${parcel.sent_on}</strong></p>
+  //   <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
+  //   <a class="btn" type="button" id="parcel__activate-btn" href="#">Activate Parcel</a>
+  //   </div>
+  // </div> `;
   position.insertAdjacentHTML('afterbegin', markup);
 }
 
@@ -141,3 +144,16 @@ export const activateParcelDeliveryOrder = (element) => {
 };
 
 
+// const markupParcelDetail = `
+// <div class="parcel__order-detail">
+//   <h2>Parcel</h2>
+//   <p>Weight: <strong>${parcel.weight}</strong></p>
+//   <p>Weight metric: <strong>${parcel.weight_metric}</strong></p>
+//   <p>sender:<strong>${parcel.sender}</strong></p>
+//   <p>receiver: <strong>${parcel.receiver}</strong></p>
+//   <p>Current Location: <strong>${parcel.current_location}</strong></p>
+//   <p>status: <strong>${parcel.status}</strong></p>
+//   <p>Sent on: <strong>${parcel.sent_on}</strong></p>
+//   <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
+//   <a class="btn" type="button" id="parcel__activate-btn" href="#">Activate Parcel</a>
+// </div> `;

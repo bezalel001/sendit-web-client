@@ -21,7 +21,7 @@ export default class UserController {
     userView.renderUserProfile(user);
     this.addNewParcelEventListener();
     this.addUserParcelListEventListener();
-    
+    //this.addParcelListItemClickEventListener();
   }
 
   addNewParcelEventListener(){
@@ -37,6 +37,8 @@ export default class UserController {
     document.getElementById('parcel__all-btn').addEventListener('click', e => {
       e.preventDefault();      
       this.parcelController.getParcelsBySpecificUser(this.userId);
+      console.log('add parcellistitemclick eventlistener')
+      this.addParcelListItemClickEventListener();
     });
   }
 
@@ -45,13 +47,32 @@ export default class UserController {
     console.log(' Check parcel__create-order button', document.getElementById('parcel__create-order'));
     document.getElementsByClassName('parcel__form-create')[0].addEventListener('submit', e => {
       e.preventDefault();
-      console.log('Eventlistener added');      
+      console.log('Eventlistener added');    
       this.parcelController.createParcel();
-      userView.clearParcelForm();
-      
+      userView.clearParcelForm(); 
     });
   }
 
+  addParcelListItemClickEventListener() {
+    console.log('Called: addParcelListItemClickEventListener()')
+    const parcels = document.getElementsByClassName('parcel__title');
+    console.log('Page title length', parcels.length)
+    console.log('First id', parcels[0].id)
+    console.log('2nd id', parcels[1].id)
+    console.log('3rd id', parcels[2].id)
+    console.log('4th id', parcels[3].id)
+    if (parcels.length > 0){
+      for(let i = 0; i < parcels.length; i++){
+        parcels[i].addEventListener('click', (e) => {
+          e.preventDefault();
+          const parcelId  = e.target.id;
+          this.parcelController.getParcel(parcelId);
+          console.log('You clicked parcel with id: ', parcelId);
+        })
+      }
+    }
+    
+  }
 
   async getUsers() {
     const users = await this.user.getUsers();

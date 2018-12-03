@@ -2,18 +2,21 @@ import { elements } from './base';
 
 export const getSignUpUserData = () => {
 
-  let userinfo = {};
+  const userinfo = {};
   userinfo.firstName = document.getElementById('firstName').value;
   userinfo.lastName = document.getElementById('lastName').value;
-  userinfo.otherNames = document.getElementById('otherNames').value;
+  if (document.getElementById('otherNames')) {
+    userinfo.otherNames = document.getElementById('otherNames').value;
+  }
+
   userinfo.username = document.getElementById('username').value;
   userinfo.email = document.getElementById('emailSignup').value;
   userinfo.password1 = document.getElementById('password1').value;
   userinfo.password2 = document.getElementById('password2').value;
-  userinfo.isAdmin = document.getElementById('checkAdmin').value;
+  userinfo.isAdmin = false;
 
   return userinfo;
-}
+};
 
 
 export const getLoginUserData = () => {
@@ -22,77 +25,77 @@ export const getLoginUserData = () => {
   userinfo.email = document.getElementById('emailLogin').value;
   userinfo.password = document.getElementById('password').value;
 
-  console.log('Userinfo: ', userinfo)
+  console.log('Userinfo: ', userinfo);
 
   return userinfo;
-}
-
-export const renderSignupForm = (element) => {
-  const markup = `
-  <h2>Sign up</h2>
-  <form class="signup__form">
-  <div class="signup__form-field">
-      <label for="firstName">First name</label>
-      <input type="text" class="signup__form-control" id="firstName"  placeholder="First name">							
-  </div>
-  <div class="signup__form-field">
-      <label for="lastName">Last name</label>
-      <input type="text" class="signup__form-control" id="lastName" placeholder="Last name">
-  </div>
-  <div class="signup__form-field">
-      <label for="otherNames">Other names</label>
-      <input type="text" class="signup__form-control" id="otherNames" placeholder="Other names">
-  </div>
-  <div class="signup__form-field">
-      <label for="emailSignup">Email address</label>
-      <input type="email" class="signup__form-control" id="emailSignup" placeholder="Enter email">
-  </div>
-  <div class="signup__form-field">
-      <label for="username">Username</label>
-      <input type="text" class="signup__form-control" id="username" placeholder="Username">
-  </div>
-  <div class="signup__form-field">
-      <label for="password1">Password</label>
-      <input type="password" class="signup__form-control" id="password1" placeholder="Password">
-  </div>
-  <div class="signup__form-field">
-      <label for="password2">Re-enter Password</label>
-      <input type="password" class="signup__form-control" id="password2" placeholder="Password">
-  </div>
-  <div class="signup__form-field">
-      <input type="checkbox" class="signup__form-check-input" id="checkAdmin">
-      <label class="signup__form-check-label" for="checkAdmin">Admin?</label>
-  </div>
-  <button type="submit" class="btn signup__btn">Create Account</button>
-</form>
-`;
-   element.insertAdjacentHTML('afterbegin', markup);
 };
 
-export const renderLoginForm = (element) => {
+export const renderSignupForm = () => {
   const markup = ` 
-  <div > 
-    <h2>Login</h2>
-    <form class="login__form">
-      <div class="login__form-field">					
-      <div class="login__form-field">
-          <label for="emailLogin">Email address</label>
-          <input type="email" class="login__form-control" id="emailLogin" placeholder="Enter email">
+  <form action="#" class="form signup__form" autocomplete="off">
+      
+      <div class="form__group">
+          <input type="text" class="form__input" placeholder="First name" id="firstName" required>
+          <label for="firstName" class="form__label">First name</label>
+      </div>
+     <div class="form__group">
+          <input type="text" class="form__input" placeholder="Last name" id="lastName" required>
+          <label for="lastName" class="form__label">Last name</label>
+      </div>
+     
+     <div class="form__group">
+          <input type="text" class="form__input" placeholder="Username" id="username" required>
+          <label for="username" class="form__label">Username</label>
       </div>
 
-      <div class="login__form-field">
-          <label for="password">Password</label>
-          <input type="password" class="login__form-control" id="password" placeholder="Password">
+      <div class="form__group">
+          <input type="email" class="form__input" placeholder="Email address" id="emailSignup" required>
+          <label for="emailSignup" class="form__label">Email address</label>
       </div>
+     <div class="form__group">
+          <input type="password" class="form__input" placeholder="Password" id="password1" required>
+          <label for="password1" class="form__label">Password</label>
+      </div>
+     <div class="form__group">
+          <input type="password" class="form__input" placeholder="Confirm password" id="password2" required>
+          <label for="password2" class="form__label">Confirm password</label>
+      </div>          
 
-      <button type="submit" class="btn login__btn">Log in</button>
-    </form>    
-  </div>
-  <div class="signup__btn">
-    <a class="btn" type="button" id="login__signup-btn" href="#">Register</a>
-    </div>
+      <div class="form__group">
+      <button type="submit" class="btn btn-auth" id="signup-form">Create Account</button>
+      </div>
+  </form>
+`;
+  clearAuthForm();
+  document.getElementsByClassName('parcels__auth-form')[0].insertAdjacentHTML('afterbegin', markup);
+};
+
+export const renderLoginForm = () => {
+  const markup = ` 
+
+
+  <form action="#" class="form login__form" autocomplete="off">
+    
+      <div class="form__group">
+          <input type="email" class="form__input" placeholder="Email address" id="emailLogin" required>
+          <label for="emailLogin" class="form__label">Email address</label>
+      </div>
+     <div class="form__group">
+          <input type="password" class="form__input" placeholder="Password" id="password" required>
+          <label for="password" class="form__label">Password</label>
+      </div>
+         
+
+      <div class="form__group">
+      <button type="submit" class="btn btn-auth" id="login-form">Login</button>
+      </div>
+  </form>
   `;
-   element.insertAdjacentHTML('afterbegin', markup);
-}
+  clearAuthForm();
+  document.getElementsByClassName('parcels__auth-form')[0].insertAdjacentHTML('afterbegin', markup);
+};
 
 
+export const clearAuthForm = () => {
+  document.getElementsByClassName('parcels__auth-form')[0].innerHTML = '';
+};
