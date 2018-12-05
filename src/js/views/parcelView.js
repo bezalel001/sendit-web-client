@@ -5,7 +5,7 @@ export const getParcelCreateValues = () => {
   parcel.sender = document.getElementById('sender').value;
   parcel.receiver = document.getElementById('receiver').value;
   return parcel;
-}
+};
 
 export const parcelActivateValues = () => {
   const parcel = {};
@@ -15,15 +15,15 @@ export const parcelActivateValues = () => {
   const status = document.getElementsByName('status');
   let checked;
 
-  for (let i = 0; i < status.length; i++){
-    if (status[i].checked){
+  for (let i = 0; i < status.length; i++) {
+    if (status[i].checked) {
       checked = status[i].value;
     }
   }
   parcel.status = checked;
 
   return parcel;
-}
+};
 
 export const renderParcelOrder = (parcel, position) => {
   const markup = `
@@ -39,14 +39,14 @@ export const renderParcelOrder = (parcel, position) => {
     <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
   </div> `;
   position.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
 export const renderParcelOrders = (parcels) => {
   parcels.forEach(parcel);
-}
+};
 
 export const renderParcelOrderByASpecificUser = (parcel, position) => {
-  const  markup = `<p><a href="#" class="parcel__title" id="${parcel.parcelId}">sender:<strong>${parcel.sender}</strong></a></p>`;
+  const markup = `<p><a href="#" class="parcel__title" id="${parcel.parcelId}">sender:<strong>${parcel.sender}</strong></a></p>`;
   // const markup = `
   // <div class="parcel__order-detail">
   //   <h2>Parcel</h2>
@@ -63,15 +63,14 @@ export const renderParcelOrderByASpecificUser = (parcel, position) => {
   //   </div>
   // </div> `;
   position.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
 
 export const renderParcelsOrderByASpecificUser = (parcels, position) => {
-  parcels.forEach( (parcel) => {
+  parcels.forEach((parcel) => {
     renderParcelOrderByASpecificUser(parcel, position);
   });
-}
-
+};
 
 
 export const renderParcelDeliveryOrderForm = (element) => {
@@ -88,7 +87,7 @@ export const renderParcelDeliveryOrderForm = (element) => {
   </div>  
   <button type="submit" class="btn parcel__btn" id="parcel__create-order">Create Delivery Order</button>
 </form>`;
-   element.insertAdjacentHTML('afterbegin', markup);
+  element.insertAdjacentHTML('afterbegin', markup);
 };
 
 
@@ -140,7 +139,7 @@ export const activateParcelDeliveryOrder = (element) => {
   <button type="submit" class="btn parcel__btn">Activate Parcel</button>
 </form>
 `;
-   element.insertAdjacentHTML('afterbegin', markup);
+  element.insertAdjacentHTML('afterbegin', markup);
 };
 
 
@@ -157,3 +156,36 @@ export const activateParcelDeliveryOrder = (element) => {
 //   <p>Delivered on: <strong>${parcel.delivered_on}</strong></p>
 //   <a class="btn" type="button" id="parcel__activate-btn" href="#">Activate Parcel</a>
 // </div> `;
+
+
+export const parcelList = () => {
+  const markup = `
+        <div class="parcel__list">
+          <div class="parcel__list-item clearfix" id="parcel-0">
+            <div class="item__description">
+              <a href="#">Physics Textbook by Higgs</a>
+            </div>   
+          </div>
+          <div class="parcel__list-item clearfix" id="parcel-0">
+            <div class="item__description">
+              <a href="#">Algorithms &amp; Data </a>
+            </div>   
+          </div>
+          <div class="parcel__list-item clearfix" id="parcel-1">
+            <div class="item__description">
+              <a href="#">Mathematical Physics</a>
+            </div>   
+          </div>
+          <div class="parcel__list-item clearfix" id="parcel-2">
+            <div class="item__description">
+              <a href="#">Modern Control Theory</a>
+            </div>   
+          </div>
+          <div class="parcel__list-item clearfix" id="parcel-3">
+            <div class="item__description">
+              <a href="#">Mathematical Modelling</a>
+            </div>   
+          </div>            
+        </div> `;
+  document.querySelector('.user__parcel-content-info').insertAdjacentHTML('afterbegin', markup);
+};

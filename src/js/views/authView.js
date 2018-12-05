@@ -62,40 +62,35 @@ export const renderSignupForm = () => {
       </div>          
 
       <div class="form__group">
-      <button type="submit" class="btn btn-auth" id="signup-form">Create Account</button>
+      <button type="submit" class="btn btn-auth" id="signup__form">Create Account</button>
       </div>
-  </form>
-`;
-  clearAuthForm();
+    </form>`;
   document.getElementsByClassName('parcels__auth-form')[0].insertAdjacentHTML('afterbegin', markup);
 };
 
 export const renderLoginForm = () => {
-  const markup = ` 
-
-
-  <form action="#" class="form login__form" autocomplete="off">
+  const markup = `
+    <form action="#" class="form login__form" autocomplete="off">
     
       <div class="form__group">
           <input type="email" class="form__input" placeholder="Email address" id="emailLogin" required>
           <label for="emailLogin" class="form__label">Email address</label>
       </div>
-     <div class="form__group">
+      <div class="form__group">
           <input type="password" class="form__input" placeholder="Password" id="password" required>
           <label for="password" class="form__label">Password</label>
       </div>
          
 
       <div class="form__group">
-      <button type="submit" class="btn btn-auth" id="login-form">Login</button>
+      
+      <button type="submit" class="btn btn-auth" id="login__form">Login</button>
       </div>
-  </form>
-  `;
-  clearAuthForm();
-  document.getElementsByClassName('parcels__auth-form')[0].insertAdjacentHTML('afterbegin', markup);
+    </form>`;
+  document.querySelector('.parcels__auth-form').insertAdjacentHTML('afterbegin', markup);
 };
 
 
 export const clearAuthForm = () => {
-  document.getElementsByClassName('parcels__auth-form')[0].innerHTML = '';
+  document.querySelector('.parcels__auth-form').innerHTML = '';
 };

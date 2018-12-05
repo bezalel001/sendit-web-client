@@ -16,6 +16,12 @@
   box-sizing: border-box;
 }
 
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -55,7 +61,7 @@ body {
 .header__heading-primary-main {
   display: block;
   font-size: 40px;
-  font-weight: 400;
+  font-weight: 200;
   letter-spacing: 25px;
   animation-name: moveInLeft;
   animation-duration: 2s;
@@ -254,9 +260,87 @@ body {
   background-color: #fff;
   color: #888;
   border-radius: 30px;
-  
 }
 
 
 
 
+/*
+  ======================================================
+  User Profile Page
+  =====================================================
+*/
+.user__profile-header {  
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  height: 40vh;
+  margin-bottom: 30px;
+}
+.user__profile-info {
+  transform: translate(-70%, -50%);
+  color: #fff;
+}
+
+.user__parcels-nav-heading {
+  list-style: none;
+}
+.user__parcels-nav-heading li{
+  display: inline;
+  margin-right: 50px;
+}
+.user__parcels-nav-heading li a,
+.signout {
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #536DFE;
+  color: #fff;
+  padding: 15px;
+  transition: backgroud-color .3s;
+}
+
+.user__parcels-nav-heading li a:hover,
+.user__parcels-nav-heading li a:active {
+  background-color: #3f51b5;
+}
+
+.signout {
+  background: #ff5e57;
+  float: right;
+  margin-right: 30px;
+  margin-top: -11px;
+  color: #888;
+  padding: 11px;
+}
+
+
+
+/*
+  ======================================================
+  Parcel List
+  =====================================================
+*/
+
+.user__parcel-content-info {
+  margin-top: 50px;
+}
+
+.parcel__list-item {
+    padding: 13px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.parcel__list-item:first-child { border-top: 1px solid #e7e7e7; }
+.parcel__list-item:nth-child(even) { background-color: #eee; }
+
+.item__description {
+    float: left;
+}
+
+.item__description a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #3D5AFE;
+}
+.item__description a:visited {
+  color: #3D5AFE;
+}

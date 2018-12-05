@@ -1,9 +1,7 @@
-import { elements } from './views/base'
+import { elements } from './views/base';
 import App from './index';
 
-
-
+/* global window: true */
 window.onload = () => {
-  
-  new App(elements.mainContent).initPage();
-}
+  new App().initPage();
+};
