@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+
 import * as authView from '../views/authView';
 import { elements, clearResults } from '../views/base';
 import Auth from '../models/Auth';
@@ -9,10 +9,8 @@ import UserController from './user';
 
 import User from '../models/User';
 
-export default class AuthController extends EventEmitter {
-  constructor(element) {
-    super();
-    this.element = element;
+export default class AuthController {
+  constructor() {
     this.state = {};
     this.user = new User();
     this.parcelController = new ParcelController();
@@ -20,41 +18,14 @@ export default class AuthController extends EventEmitter {
   }
 
   renderLoginComponent() {
-    clearResults();
+    authView.clearAuthForm();
     authView.renderLoginForm();
-    this.addLoginEventListener();
-    //
-    console.log('Signup button');
   }
 
-  addSignUpButtonEventListener() {
-    document.getElementById('login__signup-btn').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.renderSignUpComponent();
-    });
-  }
 
   renderSignUpComponent() {
-    clearResults();
+    authView.clearAuthForm();
     authView.renderSignupForm();
-    // elements.signupInputFirstName.focus();
-    // console.log('first name field', elements.signupInputFirstName);
-    console.log('Sign up form: ', elements.signupForm);
-    this.addSignUpEventListener();
-  }
-
-  addSignUpEventListener() {
-    elements.signupForm[0].addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.handleSignUp();
-    });
-  }
-
-  addLoginEventListener() {
-    document.getElementsByClassName('login__form')[0].addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.handleLogin();
-    });
   }
 
   async handleSignUp() {
@@ -64,7 +35,7 @@ export default class AuthController extends EventEmitter {
       firstName, lastName, otherNames, email, password1, password2, username, isAdmin,
     } = userData;
 
-    if (!firstName || !lastName || !email || !password1 || !password2 || !username || !isAdmin) {
+    if (!firstName || !lastName || !email || !password1 || !password2 || !username) {
       alert('Missing data!');
     }
     if (password1 !== password2) {
