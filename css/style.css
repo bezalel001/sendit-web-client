@@ -84,6 +84,10 @@ body {
   ===========================================
 */
 
+.form{
+  background-color: #eee;
+}
+
 
 .parcels__auth-form {
   width: 30%;
@@ -183,6 +187,11 @@ body {
   width: 100%;
   background-color: #3c40c6;
   color: #fff; 
+}
+
+.parcel__form {
+  width: 50%;
+  margin: 0 auto;
 }
 
 /*
