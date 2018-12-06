@@ -1,3 +1,4 @@
+/* global document */
 export const getParcelCreateValues = () => {
   const parcel = {};
   console.log('Sender: ', document.getElementById('sender'));
@@ -15,7 +16,7 @@ export const parcelActivateValues = () => {
   const status = document.getElementsByName('status');
   let checked;
 
-  for (let i = 0; i < status.length; i++) {
+  for (let i = 0; i < status.length; i += 1) {
     if (status[i].checked) {
       checked = status[i].value;
     }
@@ -73,23 +74,33 @@ export const renderParcelsOrderByASpecificUser = (parcels, position) => {
 };
 
 
-export const renderParcelDeliveryOrderForm = (element) => {
-  const markup = `
-  <h2>Parcel Delivery Order</h2>
-  <form class="parcel__form-create">
-  <div class="parcel__form-field">
-      <label for="sender">Sender's address</label>
-      <textarea class="parcel__form-control" id="sender" rows="4"></textarea>			
-  </div>
-  <div class="parcel__form-field">
-      <label for="receiver">Receiver's address</label>
-      <textarea class="parcel__form-control" id="receiver" rows="4"></textarea>			
-  </div>  
-  <button type="submit" class="btn parcel__btn" id="parcel__create-order">Create Delivery Order</button>
-</form>`;
-  element.insertAdjacentHTML('afterbegin', markup);
+export const renderParcelDeliveryOrderForm = () => {
+  const markup = ` 
+    <div class="parcel__form">
+      <form action="#" class="form" autocomplete="off">      
+        <div class="form__group">
+            <input type="text" class="form__input" placeholder="Sender's Address Line 1" id="sender-1" required>
+            <label for="sender-1" class="form__label">Sender's Address Line 1</label>
+        </div>
+        <div class="form__group">
+            <input type="text" class="form__input" placeholder="Sender's Address Line 2" id="sender-2" required>
+            <label for="sender-2" class="form__label">Sender's Address Line 2</label>
+        </div>
+        <div class="form__group">
+            <input type="text" class="form__input" placeholder="Receiver's Address Line 1" id="receiver-1" required>
+            <label for="receiver-1" class="form__label">Receiver's Address Line 1</label>
+        </div>
+        <div class="form__group">
+            <input type="text" class="form__input" placeholder="Receiver's Address Line 2" id="receiver-2" required>
+            <label for="receiver-2" class="form__label">Receiver's Address Line 2</label>
+        </div>
+        <div class="form__group">
+        <button type="submit" class="btn btn-auth" id="signup__form">Send Parcel</button>
+        </div>
+      </form>
+    </div> `;
+  document.querySelector('.user__parcel-content-info').insertAdjacentHTML('afterbegin', markup);
 };
-
 
 
 export const activateParcelDeliveryOrder = (element) => {
@@ -158,7 +169,7 @@ export const activateParcelDeliveryOrder = (element) => {
 // </div> `;
 
 
-export const parcelList = () => {
+export const parcelList = (parcels) => {
   const markup = `
         <div class="parcel__list">
           <div class="parcel__list-item clearfix" id="parcel-0">

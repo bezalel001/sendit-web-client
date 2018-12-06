@@ -1,4 +1,5 @@
 /* global alert document */
+import { clearContainer } from '../views/base';
 import User from '../models/User';
 import * as userView from '../views/userView';
 
@@ -10,22 +11,28 @@ export default class UserController {
   constructor() {
     this.user = new User();
     this.userId = -10;
+    this.isAdmin = false;
     this.parcelController = new ParcelController();
   }
 
   async getUserData(id) {
     try {
       const user = await this.user.getUserWithId(id);
-      console.log('get userdata: ', user);
       this.userId = user.user_id;
+      this.isAdmin = user.is_admin;
 
-      userView.clearContainer();
+      clearContainer();
       userView.renderUserProfile(user);
-      // this.addNewParcelEventListener();
-      // this.addUserParcelListEventListener();
-      // //this.addParcelListItemClickEventListener();
     } catch (error) {
       alert(`Could not display user profile. Error: ${error.message}`);
+    }
+  }
+
+  userParcelCtrl(id, isAdmin) {
+    if (isAdmin) {
+      this.parcelController.getParcels();
+    } else {
+      this.parcelController.getParcelsBySpecificUser(id);
     }
   }
 

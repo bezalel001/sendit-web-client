@@ -46,14 +46,14 @@ export const renderUserProfile = (user) => {
     </header>    
     <main class="main">
       <section id="user_parcels-info clearfix">
-      <a class="user__parcels signout">Sign out</a>
+      <a class="user__parcels signout" id="signout">Sign out</a>
         <div class="user__parcel-nav">
         
           <ul class="user__parcels-nav-heading">
-            <li><a class="user__parcels">All Parcels</a></li>
-            <li><a class="user__parcels">Delivered Parcels</a></li>
-            <li><a class="user__parcels">Parcels in Transit</a></li>
-            <li><a class="user__parcels">Create New Parcel +</a></li>
+            <li><a class="user__parcels" id="user__all-parcels">All Parcels</a></li>
+            <li><a class="user__parcels" id="user__delivered-parcels">Delivered Parcels</a></li>
+            <li><a class="user__parcels" id="user__in-transit-parcels">Parcels in Transit</a></li>
+            <li><a class="user__parcels" id="user__create-parcel">Create New Parcel +</a></li>
           </ul>
           
         </div>
@@ -73,6 +73,7 @@ export const clearParcelForm = () => {
   document.getElementById('user__parcel-form').innerHTML = '';
 };
 
-export const clearContainer = () => {
-  document.querySelector('.container').innerHTML = '';
+
+export const clearUserParcelContainer = () => {
+  document.querySelector('.user__parcel-content-info').innerHTML = '';
 };

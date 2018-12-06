@@ -34,8 +34,15 @@ export const clearResults = () => {
   elements.mainContent.innerHTML = '';
 };
 
+export const clearMainContent = () => {
+  elements.mainContent.innerHTML = '';
+};
+export const clearPageHeader = () => {
+  elements.pageHeader.innerHTML = '';
+};
 export const homePageView = () => {
-  const markup = `          
+  const markup = `
+     
     <nav class="navigation__nav">
       <ul class="navigation__list">
           <li><a href="#" class="navigation__link" id="home">Home</a></li>
@@ -50,7 +57,14 @@ export const homePageView = () => {
         </h1>
         <a class="btn btn-white" href="https://boiling-earth-75235.herokuapp.com" target="_blank">Learn More</a>
     </div>
-    <div class="parcels__auth-form"></div>`;
+    <div class="parcels__auth-form"></div>
+  `;
+
 
   elements.pageHeader.insertAdjacentHTML('afterbegin', markup);
+};
+
+
+export const clearContainer = () => {
+  document.querySelector('.container').innerHTML = '';
 };

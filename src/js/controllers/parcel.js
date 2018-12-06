@@ -1,18 +1,23 @@
 import Parcel from '../models/Parcel';
 import * as parcelView from '../views/parcelView';
-import {elements, clearResults } from '../views/base';
+import { elements, clearResults } from '../views/base';
 import * as userView from '../views/userView';
 
 export default class ParcelController {
-  constructor(){
-    this.parcel = new Parcel()
+  constructor() {
+    this.parcel = new Parcel();
+  }
+
+  renderParcelFormComponent() {
+    userView.clearUserParcelContainer();
+    parcelView.renderParcelDeliveryOrderForm();
   }
 
   // Create parcel delivery order
   async createParcel() {
-    console.log('Create parcelcontroller called')
+    console.log('Create parcelcontroller called');
     const parcel = parcelView.getParcelCreateValues();
-    console.log('Parcel: ', parcel)
+    console.log('Parcel: ', parcel);
     try {
       const newParcel = await this.parcel.createParcel(parcel);
       console.log('New parcel: ', newParcel);
@@ -39,21 +44,21 @@ export default class ParcelController {
 
     try {
       const parcels = await this.parcel.getParcels();
-      clearResults();
-      parcelView.renderParcelOrders(parcels);
-      
+      userView.clearUserParcelContainer();
+      parcelView.parcelList();
+
     } catch (error) {
-      alert(`Could not get parcels====${error}`)
+      alert(`Could not get parcels====${error}`);
     }
   }
 
   // Get a specific parcel delivery order
   async getParcel(parcelId) {
     try {
-      const parcelDetail = await this.parcel.getParcel(parcelId)
+      const parcelDetail = await this.parcel.getParcel(parcelId);
       parcelView.renderParcelOrder(parcelDetail, document.getElementById('user__all-parcels'));
     } catch (error) {
-      alert(`Error: ${error.message}`)
+      alert(`Error: ${error.message}`);
     }
   }
 
@@ -61,9 +66,9 @@ export default class ParcelController {
   async getParcelBySpecificUser(req, res) {
 
     try {
-      
+
     } catch (error) {
-      
+
     }
   }
 
@@ -72,7 +77,7 @@ export default class ParcelController {
 
     try {
     } catch (error) {
-      
+
     }
   }
 
@@ -83,7 +88,7 @@ export default class ParcelController {
     try {
 
     } catch (error) {
-      
+
     }
   }
 
@@ -92,22 +97,22 @@ export default class ParcelController {
 
     try {
       const parcels = await this.parcel.getParcelsBySpecificUser(userId);
-      console.log('User parcels: ', parcels)
+      console.log('User parcels: ', parcels);
       parcelView.renderParcelsOrderByASpecificUser(parcels, document.getElementById('user__all-parcels'));
     } catch (error) {
-      alert(`Could not get parcels for user -- ${error}`)
+      alert(`Could not get parcels for user -- ${error}`);
     }
   }
 
   // Change the status of a specific parcel delivery order.
   // Only the Admin is allowed to access this endpoint.
   async changeParcelStatus(req, res) {
-  
+
 
     try {
 
     } catch (error) {
-      
+
     }
   }
 
@@ -116,18 +121,18 @@ export default class ParcelController {
   async changeParcelCurrentLocation(req, res) {
 
     try {
-      
+
     } catch (error) {
-      
+
     }
   }
 
   // delete a parcel delivery order
   async deleteParcel(req, res) {
     try {
-      
+
     } catch (error) {
-      
+
     }
   }
 }
