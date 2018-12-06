@@ -5,7 +5,6 @@ export default class Parcel {
   }
 
 
-
   // Create parcel delivery order
   async createParcel(parcel) {
     const { sender, receiver } = parcel;
@@ -35,8 +34,8 @@ export default class Parcel {
   // Activate parcel
   async activateParcel(parcel) {
     const {
- parcelId, placed_by, weight, weightMetric, currentLocation, status 
-} = parcel;
+      parcelId, placed_by, weight, weightMetric, currentLocation, status,
+    } = parcel;
     const userId = placed_by;
     try {
       const result = await fetch(`${this.URL}/api/v1/users/${userId}/parcels/${parcelId}`, {
@@ -67,17 +66,17 @@ export default class Parcel {
   async getParcels() {
 
     try {
-      const results = await fetch(`${this.URL}/parcels`, {
+      const results = await fetch(`${this.URL}/api/v1/parcels`, {
         headers: {
           Accept: 'application/json',
           Authorization: localStorage.getItem('token'),
         },
       });
-      const parcel = await results.json();
-
-      return parcel.data;
+      const parcels = await results.json();
+      console.log('Pacels: ', parcels.data);
+      return parcels.data;
     } catch (error) {
-      alert(`Could not get Parcels--- ${error}`);
+      alert(`Could not get Parcels--- ${errdor}`);
     }
   }
 
@@ -85,7 +84,7 @@ export default class Parcel {
   async getParcel(parcelId) {
     // const { parcelId } = parcel;
     try {
-      const result = await fetch(`${this.URL}/parcels/${parcelId}`, {
+      const result = await fetch(`${this.URL}/api/v1/parcels/${parcelId}`, {
         headers: {
           Accept: 'application/json',
           Authorization: localStorage.getItem('token'),

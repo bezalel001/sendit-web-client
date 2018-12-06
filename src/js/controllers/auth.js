@@ -1,6 +1,6 @@
 
 import * as authView from '../views/authView';
-import { elements, clearResults } from '../views/base';
+import { homePageView, clearContainer } from '../views/base';
 import Auth from '../models/Auth';
 import * as userView from '../views/userView';
 import * as parcelView from '../views/parcelView';
@@ -76,8 +76,15 @@ export default class AuthController {
       // redirect user to profile
 
       this.userController.getUserData(user.user_id);
+      return { userId: user.user_id, isAdmin: user.is_admin };
     } catch (error) {
       alert(`Some login Error: ${error}`);
     }
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    // clearContainer();
+    homePageView();
   }
 }
