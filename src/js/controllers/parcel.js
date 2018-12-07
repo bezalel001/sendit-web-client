@@ -13,6 +13,27 @@ export default class ParcelController {
     parcelView.renderParcelDeliveryOrderForm();
   }
 
+  renderActivateParcelFormComponent() {
+    userView.clearUserParcelContainer();
+    parcelView.renderActivateParcelForm();
+  }
+
+  renderParcelEditStatusFormComponent() {
+    userView.clearUserParcelContainer();
+    parcelView.renderEditParcelStatusForm();
+  }
+
+  renderParcelEditLocationFormComponent() {
+    userView.clearUserParcelContainer();
+    parcelView.renderEditParcelLocationForm();
+  }
+
+  renderParcelEditDestinationFormComponent() {
+    userView.clearUserParcelContainer();
+    parcelView.renderEditParcelDestinationForm();
+  }
+
+
   // Create parcel delivery order
   async createParcel() {
     console.log('Create parcelcontroller called');
@@ -27,6 +48,8 @@ export default class ParcelController {
       alert(`Parcel create error === ${error}`);
     }
   }
+
+
 
   // Activate parcel
   async activateParcel(parcel) {
@@ -55,8 +78,9 @@ export default class ParcelController {
   // Get a specific parcel delivery order
   async getParcel(parcelId) {
     try {
-      const parcelDetail = await this.parcel.getParcel(parcelId);
-      parcelView.renderParcelOrder(parcelDetail, document.getElementById('user__all-parcels'));
+      // const parcelDetail = await this.parcel.getParcel(parcelId);
+      userView.clearUserParcelContainer();
+      parcelView.renderParcelDetail();
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
@@ -73,11 +97,12 @@ export default class ParcelController {
   }
 
   // Cancel a specific parcel delivery order
-  async cancelParcel(req, res) {
+  async cancelParcel() {
 
     try {
+      console.log('Parcel cancel');
     } catch (error) {
-
+      alert('Could not cancel this parcel');
     }
   }
 

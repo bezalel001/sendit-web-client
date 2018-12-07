@@ -5,6 +5,7 @@ import AuthController from './controllers/auth';
 import { elements, homePageView } from './views/base';
 import UserController from './controllers/user';
 import ParcelController from './controllers/parcel';
+import Parcel from './models/Parcel';
 
 export default class App {
   constructor() {
@@ -52,6 +53,18 @@ export default class App {
       } else if (event.target.id === 'signout') {
         console.log('Logout out event');
         new AuthController().handleLogout();
+      } else if (event.target.id === 'parcel-0') {
+        new ParcelController().getParcel(0);
+      } else if (event.target.id === 'parcel__activate') {
+        new ParcelController().renderActivateParcelFormComponent();
+      } else if (event.target.id === 'parcel__edit-location') {
+        new ParcelController().renderParcelEditLocationFormComponent();
+      } else if (event.target.id === 'parcel__edit-status') {
+        new ParcelController().renderParcelEditStatusFormComponent();
+      } else if (event.target.id === 'parcel__change-destination') {
+        new ParcelController().renderParcelEditDestinationFormComponent();
+      } else if (event.target.id === 'parcel__cancel') {
+        new ParcelController().cancelParcel(new Parcel());
       }
     } catch (error) {
       alert(`Could not handle click: ${error.message}`);
