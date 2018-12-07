@@ -57,9 +57,7 @@ export const homePageView = () => {
         </h1>
         <a class="btn btn-white" href="https://boiling-earth-75235.herokuapp.com" target="_blank">Learn More</a>
     </div>
-    <div class="parcels__auth-form"></div>
-  `;
-
+    <div class="parcels__auth-form"></div> `;
 
   elements.pageHeader.insertAdjacentHTML('afterbegin', markup);
 };
