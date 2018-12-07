@@ -353,3 +353,13 @@ body {
 .item__description a:visited {
   color: #3D5AFE;
 }
+
+
+/*
+  ======================================================
+  Parcel Detail
+  =====================================================
+*/
+.admin__parcel-actions {
+  margin-top: 50px;
+}
